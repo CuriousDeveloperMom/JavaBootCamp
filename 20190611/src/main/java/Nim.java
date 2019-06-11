@@ -11,21 +11,23 @@ public class Nim {
             int PileB = 3;
             int PileC = 3;
             int count = 0;
-            //String player1 = "Player1";
-            //String player2 = "Player2";
-            //String turn = "";
-            //turn = player1;
-            //String temp = "";
 
-            for (int i=0; i<arr.length; i++)
-
+            //int[] player = {1,2};
+            //int turn = player[0];
+            System.out.println("Player 1, enter your name: ");
+            String player1 = myScanner.nextLine();
+            System.out.println("Player 2, enter your name: ");
+            String player2 = myScanner.nextLine();
+            //String turn = player1;
+            String [] arr = {player1,player2};
+            int i=0;
             while ((PileA != 0) || (PileB != 0) || (PileC !=0)){
                if ((PileA<=0) && (PileB<=0) && (PileC<=0))
                     break;
 
                 System.out.println("A :" + PileA + "       B: " + PileB + "      C: " + PileC);
                 //System.out.print("A: " + PileA + "      B: " + PileB + "      C: " + PileC);
-                System.out.println("\nChoose a pile: ");
+                System.out.println(arr[i] + " \n Choose a pile: ");
                 P = myScanner.nextLine();
                 //System.out.println(P);
                 System.out.println("How many to remove from pile " + P + ":");
@@ -43,14 +45,16 @@ public class Nim {
                         PileC = PileC - count;
                         break;
                 }
-                temp = turn;
-                turn = player2;
-                System.out.println(turn);
+                i++;
+                if (i==2)
+                    i=i%2;
+                //System.out.println("Player : " + turn);
             }
 
-            System.out.print("      A: " + PileA + "      B: " + PileB + "      C: " + PileC);
-            System.out.println("All piles are empty. Good job!\n");
-            System.out.println(turn);
+            System.out.println("      A: " + PileA + "      B: " + PileB + "      C: " + PileC);
+            System.out.println("");
+            System.out.println(arr[i] + " there are no counters left, so you WIN!");
+            //System.out.println("Player : " + arr[i]);
 
         }
 
