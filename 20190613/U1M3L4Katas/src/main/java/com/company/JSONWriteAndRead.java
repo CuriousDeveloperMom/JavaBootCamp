@@ -33,7 +33,7 @@ public class JSONWriteAndRead {
             writer = new PrintWriter(new FileWriter("carListJason.json"));
             writer.println(jsonCarList);
 
-            List<Car> cars =
+           /*List<Car> cars =
                     new JSONWriteAndRead<Car>(new FileReader("carListJason.json")).withType(Car.class).build().parse();
 
             for (Car car : cars) {
@@ -42,7 +42,7 @@ public class JSONWriteAndRead {
                 System.out.println(car.getModel());
                 System.out.println(car.getYear());
                 System.out.println(car.getColor());
-            }
+            }*/
         } catch (JsonProcessingException e) {
             System.out.println("ERROR: Trouble converting object to JSON string: " + e.getMessage());
         } catch (IOException e) {

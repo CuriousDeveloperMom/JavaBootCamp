@@ -1,10 +1,10 @@
 package com.company.Television;
-
-import com.company.Car;
 import com.company.JSONWriteAndRead;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.bean.CsvToBeanBuilder;
+
 
 
 import java.io.*;
@@ -16,7 +16,7 @@ public class TelevisionReader {
     public static void main(String[] args) {
 
         PrintWriter writer = null;
-        //List<Television> televisionList = new ArrayList<>();
+        List<Television> televisionList = new ArrayList<>();
 
         //JSON parser object to parse read file
 
@@ -24,21 +24,14 @@ public class TelevisionReader {
 
 
         try {
-            //ObjectMapper mapper = new ObjectMapper();
-            //String jsonCarList = mapper.writeValueAsString(carList);
+            ObjectMapper mapper = new ObjectMapper();
+            //String jsonCarList = mapper.writeValueAsString(televisionList);
 
-            //ObjectMapper objectMapper = new ObjectMapper();
-            //Person ben = objectMapper.readValue(new File("example.json"), Person.class);*/
-
-           ObjectMapper mapper = new ObjectMapper();
-            //String jteleList = mapper.readValue("televisions.json");
+            televisionList = mapper.readValue(new File("televisions.json"),new TypeReference<List<Television>>(){});
+            //String jsontelevisions = mapper.writeValueAsString(televisionList);
 
             //System.out.println(jteleList);
-            //writer = new PrintWriter(new FileWriter("carListJason.json"));
-            //writer.println(jsonCarList);
 
-/*            List<Television> televisionList =
-                    new CsvToBeanBuilder<Television>(new FileReader("televisions.json")).withType(Television.class).build().parse();
 
             for (Television tele : televisionList) {
                 System.out.println("=================================");
@@ -52,12 +45,9 @@ public class TelevisionReader {
         } catch (IOException e) {
             System.out.println("ERROR: Could not write to file: " + e.getMessage());
         } finally {
-            if (writer != null) {
-                writer.flush();
-                writer.close();
-            }
+
         }
-    }*/
+    }
 
     }
 
