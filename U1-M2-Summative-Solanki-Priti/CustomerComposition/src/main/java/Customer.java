@@ -10,6 +10,19 @@ public class Customer {
 
     private boolean isRewardsMember;
 
+    public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String email, String phoneNumber, Address shippingAddress, Address billingAddress, boolean isRewardsMember) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.shippingAddress = shippingAddress;
+        this.billingAddress = billingAddress;
+        this.isRewardsMember = isRewardsMember;
+    }
+
     public String getFirstName() {
         return firstName;
     }
