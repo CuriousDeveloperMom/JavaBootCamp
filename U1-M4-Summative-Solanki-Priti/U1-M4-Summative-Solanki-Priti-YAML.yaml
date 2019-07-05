@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Summative Assessment Spring Boot and REST
+  description: A simple web service that provides quote-of-the-day, word-of-the-day, and magic 8-ball service.
+  version: 0.0.1
+servers: 
+    - url: http://localhost:8080
+      description: Local dev server
+paths:
+  /quote:
+    get:
+      summary: provides quote of a day.
+      description: A simple service that provides quote of a day.
+      responses:
+        '200':
+          description: Quote object randomly generated.
+          content:
+            application/json:
+              schema:
+              # we are referencing the Quote object definition found at the bottom of the file
+                $ref: '#/components/schemas/Quote'
+  /word:
+    get:
+      summary: provides word of a day and its definition.
+      description: A simple service that provides word of a day.
+      responses:
+        '200':
+          description: Definition object randomly generated.
+          content:
+            application/json:
+              schema:
+              # we are referencing the Definition object definition found at the bottom of the file
+                $ref: '#/components/schemas/Definition'
+  /magic:
+    post:
+      summary: provides answer to a question using magic 8-ball service.
+      description: A simple service that answer to a question using magic 8-ball service.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+            # we are referencing the Answer object definition found at the bottom of the file
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '201':
+          description: Answer object randomly generated.
+          content:
+            application/json:
+              schema:
+              # we are referencing the Answer object definition found at the bottom of the file
+                $ref: '#/components/schemas/Answer'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete Answer information. Some required fields            missing. Unprocessable Entity        
+      
+components:
+  schemas:
+    Quote:
+      properties:
+        author:
+          type: string
+        quote:
+          type: string
+      required: 
+        - author
+        - quote
+    Definition:
+      properties:
+        word:
+          type: string
+        definition:
+          type: string
+      required: 
+        - word
+        - definition
+    Answer:
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+      required: 
+        - question
+        - answer
+        
+    
+      
