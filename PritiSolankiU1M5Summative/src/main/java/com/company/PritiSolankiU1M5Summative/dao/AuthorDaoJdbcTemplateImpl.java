@@ -65,18 +65,18 @@ public class AuthorDaoJdbcTemplateImpl implements AuthorDao {
     public Author addAuthor(Author author) {
 
         jdbcTemplate.update(INSERT_AUTHOR_SQL,
-                author.getFirst_name(),
-                author.getLast_name(),
+                author.getFirstName(),
+                author.getLastName(),
                 author.getStreet(),
                 author.getCity(),
                 author.getState(),
-                author.getPostal_code(),
+                author.getPostalCode(),
                 author.getPhone(),
                 author.getEmail());
 
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
 
-        author.setAuthor_id(id);
+        author.setAuthorId(id);
 
         return author;
     }
@@ -85,14 +85,15 @@ public class AuthorDaoJdbcTemplateImpl implements AuthorDao {
     public void updateAuthor(Author author) {
 
         jdbcTemplate.update(UPDATE_AUTHOR_SQL,
-                author.getFirst_name(),
-                author.getLast_name(),
+                author.getFirstName(),
+                author.getLastName(),
                 author.getStreet(),
                 author.getCity(),
                 author.getState(),
-                author.getPostal_code(),
+                author.getPostalCode(),
                 author.getPhone(),
-                author.getEmail());
+                author.getEmail(),
+                author.getAuthorId());
     }
 
     @Override
@@ -105,13 +106,13 @@ public class AuthorDaoJdbcTemplateImpl implements AuthorDao {
     // Helper methods
     private Author mapRowToAuthor(ResultSet rs, int rowNum) throws SQLException {
         Author author = new Author();
-        author.setAuthor_id(rs.getInt("author_id"));
-        author.setFirst_name(rs.getString("first_name"));
-        author.setLast_name(rs.getString("last_name"));
+        author.setAuthorId(rs.getInt("author_id"));
+        author.setFirstName(rs.getString("first_name"));
+        author.setLastName(rs.getString("last_name"));
         author.setStreet(rs.getString("street"));
         author.setCity(rs.getString("city"));
         author.setState(rs.getString("state"));
-        author.setPostal_code(rs.getString("postal_code"));
+        author.setPostalCode(rs.getString("postal_code"));
         author.setPhone(rs.getString("phone"));
         author.setEmail(rs.getString("email"));
 

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -75,28 +76,37 @@ public class BookDaoJdbcTemplateImpl implements BookDao{
     public Book addBook(Book book) {
             jdbcTemplate.update(INSERT_BOOK_SQL,
                     book.getIsbn(),
-                    book.getPublish_date(),
-                    book.getAuthor_id(),
+                    book.getPublishDate(),
+                    book.getAuthorId(),
                     book.getTitle(),
-                    book.getPublisher_id(),
+                    book.getPublisherId(),
                     book.getPrice());
 
             int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
 
-            book.setBook_id(id);
+            book.setBookId(id);
 
             return book;
     }
 
     @Override
     public void updateBook(Book book) {
+        System.out.println("In Impl Class in update method ");
             jdbcTemplate.update(UPDATE_BOOK_SQL,
                     book.getIsbn(),
-                    book.getPublish_date(),
-                    book.getAuthor_id(),
+                    book.getPublishDate(),
+                    book.getAuthorId(),
                     book.getTitle(),
-                    book.getPublisher_id(),
-                    book.getPrice());
+                    book.getPublisherId(),
+                    book.getPrice(),
+                    book.getBookId());
+        System.out.println("Isbn" + book.getIsbn());
+        System.out.println("Publisher Date" + book.getPublishDate());
+        System.out.println("Author Id" + book.getAuthorId());
+        System.out.println("Title" + book.getTitle());
+        System.out.println("Publisher Id" + book.getPublisherId());
+        System.out.println("Price" + book.getPrice());
+        System.out.println("Book Id" + book.getBookId());
     }
 
     @Override
@@ -110,12 +120,12 @@ public class BookDaoJdbcTemplateImpl implements BookDao{
         // Helper methods
         private Book mapRowToBook(ResultSet rs, int rowNum) throws SQLException {
             Book book = new Book();
-            book.setBook_id(rs.getInt("book_id"));
+            book.setBookId(rs.getInt("book_id"));
             book.setIsbn(rs.getString("isbn"));
-            book.setPublish_date(rs.getString("publish_date"));
-            book.setAuthor_id(rs.getInt("author_id"));
+            book.setPublishDate(LocalDate.parse(rs.getString("publish_date")));
+            book.setAuthorId(rs.getInt("author_id"));
             book.setTitle(rs.getString("title"));
-            book.setPublisher_id(rs.getInt("publisher_id"));
+            book.setPublisherId(rs.getInt("publisher_id"));
             book.setPrice(rs.getBigDecimal("price"));
 
             return book;

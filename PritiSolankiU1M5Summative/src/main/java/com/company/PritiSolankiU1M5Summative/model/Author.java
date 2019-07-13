@@ -3,38 +3,38 @@ package com.company.PritiSolankiU1M5Summative.model;
 import java.util.Objects;
 
 public class Author {
-    private int author_id;
-    private String first_name;
-    private String last_name;
+    private int authorId;
+    private String firstName;
+    private String lastName;
     private String street;
     private String city;
     private String state;
-    private String postal_code;
+    private String postalCode;
     private String phone;
     private String email;
 
-    public int getAuthor_id() {
-        return author_id;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getStreet() {
@@ -61,12 +61,12 @@ public class Author {
         this.state = state;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getPhone() {
@@ -89,21 +89,20 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Author that = (Author) o;
-        return getAuthor_id() == that.getAuthor_id() &&
-                Objects.equals(getFirst_name(), that.getFirst_name()) &&
-                Objects.equals(getLast_name(), that.getLast_name()) &&
-                Objects.equals(getStreet(), that.getStreet()) &&
-                Objects.equals(getCity(), that.getCity()) &&
-                Objects.equals(getState(), that.getState()) &&
-                Objects.equals(getPostal_code(), that.getPostal_code()) &&
-                Objects.equals(getPhone(), that.getPhone()) &&
-                Objects.equals(getEmail(), that.getEmail());
+        Author author = (Author) o;
+        return authorId == author.authorId &&
+                Objects.equals(firstName, author.firstName) &&
+                Objects.equals(lastName, author.lastName) &&
+                Objects.equals(street, author.street) &&
+                Objects.equals(city, author.city) &&
+                Objects.equals(state, author.state) &&
+                Objects.equals(postalCode, author.postalCode) &&
+                Objects.equals(phone, author.phone) &&
+                Objects.equals(email, author.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAuthor_id(), getFirst_name(), getLast_name(), getStreet(), getCity(), getState(), getPostal_code(), getPhone(), getEmail());
+        return Objects.hash(authorId, firstName, lastName, street, city, state, postalCode, phone, email);
     }
-
 }

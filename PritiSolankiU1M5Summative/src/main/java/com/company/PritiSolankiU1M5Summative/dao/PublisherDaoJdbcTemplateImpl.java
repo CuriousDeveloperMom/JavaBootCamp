@@ -67,13 +67,13 @@ public class PublisherDaoJdbcTemplateImpl implements PublisherDao {
                 publisher.getStreet(),
                 publisher.getCity(),
                 publisher.getState(),
-                publisher.getPostal_code(),
+                publisher.getPostalCode(),
                 publisher.getPhone(),
                 publisher.getEmail());
 
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
 
-        publisher.setPublisher_id(id);
+        publisher.setPublisherId(id);
         return publisher;
     }
 
@@ -84,9 +84,10 @@ public class PublisherDaoJdbcTemplateImpl implements PublisherDao {
             publisher.getStreet(),
             publisher.getCity(),
             publisher.getState(),
-            publisher.getPostal_code(),
+            publisher.getPostalCode(),
             publisher.getPhone(),
-            publisher.getEmail());
+            publisher.getEmail(),
+            publisher.getPublisherId());
     }
 
     @Override
@@ -98,12 +99,12 @@ public class PublisherDaoJdbcTemplateImpl implements PublisherDao {
     // Helper methods
     private Publisher mapRowToPublisher(ResultSet rs, int rowNum) throws SQLException {
         Publisher publisher = new Publisher();
-        publisher.setPublisher_id(rs.getInt("publisher_id"));
+        publisher.setPublisherId(rs.getInt("publisher_id"));
         publisher.setName(rs.getString("name"));
         publisher.setStreet(rs.getString("street"));
         publisher.setCity(rs.getString("city"));
         publisher.setState(rs.getString("state"));
-        publisher.setPostal_code(rs.getString("postal_code"));
+        publisher.setPostalCode(rs.getString("postal_code"));
         publisher.setPhone(rs.getString("phone"));
         publisher.setEmail(rs.getString("email"));
         return publisher;

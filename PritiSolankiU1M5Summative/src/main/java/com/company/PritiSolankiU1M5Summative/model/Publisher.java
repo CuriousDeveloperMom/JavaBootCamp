@@ -3,22 +3,21 @@ package com.company.PritiSolankiU1M5Summative.model;
 import java.util.Objects;
 
 public class Publisher {
-    private int publisher_id;
+    private int publisherId;
     private String name;
     private String street;
     private String city;
     private String state;
-    private String postal_code;
+    private String postalCode;
     private String phone;
     private String email;
 
-
-    public int getPublisher_id() {
-        return publisher_id;
+    public int getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisher_id(int publisher_id) {
-        this.publisher_id = publisher_id;
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
     }
 
     public String getName() {
@@ -53,12 +52,12 @@ public class Publisher {
         this.state = state;
     }
 
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getPhone() {
@@ -81,20 +80,19 @@ public class Publisher {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Publisher that = (Publisher) o;
-        return getPublisher_id() == that.getPublisher_id() &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getStreet(), that.getStreet()) &&
-                Objects.equals(getCity(), that.getCity()) &&
-                Objects.equals(getState(), that.getState()) &&
-                Objects.equals(getPostal_code(), that.getPostal_code()) &&
-                Objects.equals(getPhone(), that.getPhone()) &&
-                Objects.equals(getEmail(), that.getEmail());
+        Publisher publisher = (Publisher) o;
+        return publisherId == publisher.publisherId &&
+                Objects.equals(name, publisher.name) &&
+                Objects.equals(street, publisher.street) &&
+                Objects.equals(city, publisher.city) &&
+                Objects.equals(state, publisher.state) &&
+                Objects.equals(postalCode, publisher.postalCode) &&
+                Objects.equals(phone, publisher.phone) &&
+                Objects.equals(email, publisher.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPublisher_id(), getName(), getStreet(), getCity(), getState(), getPostal_code(), getPhone(), getEmail());
+        return Objects.hash(publisherId, name, street, city, state, postalCode, phone, email);
     }
-
 }

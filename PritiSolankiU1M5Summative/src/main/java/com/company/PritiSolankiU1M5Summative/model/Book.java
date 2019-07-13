@@ -1,23 +1,24 @@
 package com.company.PritiSolankiU1M5Summative.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book {
-    private int book_id;
+    private int bookId;
     private String isbn;
-    private String publish_date;
-    private int author_id;
+    private LocalDate publishDate;
+    private int authorId;
     private String title;
-    private int publisher_id;
+    private int publisherId;
     private BigDecimal price;
 
-    public int getBook_id() {
-        return book_id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getIsbn() {
@@ -28,20 +29,20 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getPublish_date() {
-        return publish_date;
+    public LocalDate getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublish_date(String publish_date) {
-        this.publish_date = publish_date;
+    public void setPublishDate(LocalDate publishDate) {
+        this.publishDate = publishDate;
     }
 
-    public int getAuthor_id() {
-        return author_id;
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public String getTitle() {
@@ -52,12 +53,12 @@ public class Book {
         this.title = title;
     }
 
-    public int getPublisher_id() {
-        return publisher_id;
+    public int getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisher_id(int publisher_id) {
-        this.publisher_id = publisher_id;
+    public void setPublisherId(int publisherId) {
+        this.publisherId = publisherId;
     }
 
     public BigDecimal getPrice() {
@@ -73,21 +74,21 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return book_id == book.book_id &&
-                author_id == book.author_id &&
-                publisher_id == book.publisher_id &&
-                isbn.equals(book.isbn) &&
-                publish_date.equals(book.publish_date) &&
-                title.equals(book.title) &&
-                price.equals(book.price);
+        return bookId == book.bookId &&
+                authorId == book.authorId &&
+                publisherId == book.publisherId &&
+                Objects.equals(isbn, book.isbn) &&
+                Objects.equals(publishDate, book.publishDate) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(price, book.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(book_id, isbn, publish_date, author_id, title, publisher_id, price);
+        return Objects.hash(bookId, isbn, publishDate, authorId, title, publisherId, price);
     }
 
-    /* @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
