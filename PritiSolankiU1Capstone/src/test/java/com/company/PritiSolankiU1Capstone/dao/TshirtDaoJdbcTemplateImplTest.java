@@ -2,6 +2,7 @@ package com.company.PritiSolankiU1Capstone.dao;
 
 import com.company.PritiSolankiU1Capstone.model.Game;
 import com.company.PritiSolankiU1Capstone.model.Tshirt;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.math.RoundingMode.HALF_UP;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,6 +30,14 @@ public class TshirtDaoJdbcTemplateImplTest {
             tshirtDao.deleteTshirt(it.gettShirtId());
         }
     }
+    @After
+    public void tearDown() throws Exception {
+        List<Tshirt> tshirtList = tshirtDao.getAllTshirts();
+        tshirtList.stream()
+                .forEach(tShirt -> {
+                    tshirtDao.deleteTshirt(tShirt.gettShirtId());
+                });
+    }
 
     @Test
     public void addGetDeleteTshirt() {
@@ -35,7 +45,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30));
+        tshirt.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt.setQuantity(10);
 
         tshirt = tshirtDao.addTshirt(tshirt);
@@ -55,7 +65,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30));
+        tshirt.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt.setQuantity(10);
 
         tshirt = tshirtDao.addTshirt(tshirt);
@@ -64,7 +74,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Medium");
         tshirt.setColor("Red");
         tshirt.setDescription("Active");
-        tshirt.setPrice(new BigDecimal(35));
+        tshirt.setPrice(new BigDecimal(35).setScale(2, HALF_UP));
         tshirt.setQuantity(20);
 
         tshirtDao.addTshirt(tshirt);
@@ -80,7 +90,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30));
+        tshirt.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt.setQuantity(10);
 
         tshirt = tshirtDao.addTshirt(tshirt);
@@ -88,7 +98,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("XLarge");
         tshirt.setColor("Light Blue");
         tshirt.setDescription("Active Sportswear");
-        tshirt.setPrice(new BigDecimal(45));
+        tshirt.setPrice(new BigDecimal(45).setScale(2, HALF_UP));
         tshirt.setQuantity(5);
 
         tshirtDao.updateTshirt(tshirt);
@@ -105,7 +115,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30));
+        tshirt.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt.setQuantity(10);
 
         tshirt = tshirtDao.addTshirt(tshirt);
@@ -115,7 +125,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt1.setSize("Medium");
         tshirt1.setColor("Red");
         tshirt1.setDescription("Sportswear");
-        tshirt1.setPrice(new BigDecimal(30));
+        tshirt1.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt1.setQuantity(10);
 
         tshirtDao.addTshirt(tshirt1);
@@ -132,7 +142,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30));
+        tshirt.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt.setQuantity(10);
 
         tshirt = tshirtDao.addTshirt(tshirt);
@@ -142,7 +152,7 @@ public class TshirtDaoJdbcTemplateImplTest {
         tshirt1.setSize("Medium");
         tshirt1.setColor("Red");
         tshirt1.setDescription("Sportswear");
-        tshirt1.setPrice(new BigDecimal(30));
+        tshirt1.setPrice(new BigDecimal(30).setScale(2, HALF_UP));
         tshirt1.setQuantity(10);
 
         tshirtDao.addTshirt(tshirt1);

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.math.RoundingMode.HALF_UP;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,7 +45,7 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
@@ -66,7 +67,7 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
@@ -75,7 +76,7 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
@@ -93,7 +94,7 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
@@ -102,7 +103,7 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite1");
         game.setErsbRating("E10+");
         game.setDescription("fortnite1@gmail.com");
-        game.setPrice(new BigDecimal(69.99));
+        game.setPrice(new BigDecimal(69.99).setScale(2, HALF_UP));
         game.setStudio("Bollywood");
         game.setQuantity(15);
 
@@ -120,26 +121,38 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
         game = gameDao.addGame(game);
 
-        Game game1 = new Game();
+        game.setTitle("Fortnite1");
+        game.setErsbRating("E10+");
+        game.setDescription("fortnite1@gmail.com");
+        game.setPrice(new BigDecimal(69.99).setScale(2, HALF_UP));
+        game.setStudio("Bollywood");
+        game.setQuantity(15);
+
+        gameDao.addGame(game);
 
         game.setTitle("Fortnite1");
         game.setErsbRating("E10+");
         game.setDescription("fortnite1@gmail.com");
-        game.setPrice(new BigDecimal(69.99));
+        game.setPrice(new BigDecimal(69.99).setScale(2, HALF_UP));
         game.setStudio("Bollywood");
         game.setQuantity(15);
 
-        gameDao.addGame(game1);
+        gameDao.addGame(game);
 
-        List<Game> iList = gameDao.getGamesByStudio(game.getStudio());
-        assertEquals(2,iList.size());
+        List<Game> gList = gameDao.getGamesByStudio("Bollywood");
+        assertEquals(2,gList.size());
 
+        gList = gameDao.getGamesByStudio("Hollywood");
+        assertEquals(1,gList.size());
+
+        gList = gameDao.getGamesByStudio("Opera");
+        assertEquals(0,gList.size());
     }
 
     @Test
@@ -150,25 +163,38 @@ public class GameDaoJdbcTemplateImplTest {
         game.setTitle("Fortnite");
         game.setErsbRating("EC");
         game.setDescription("fortnite@gmail.com");
-        game.setPrice(new BigDecimal(49.99));
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
-        game = gameDao.addGame(game);
-
-        Game invoiceItem1 = new Game();
+        gameDao.addGame(game);
 
         game.setTitle("Fortnite1");
         game.setErsbRating("E10+");
         game.setDescription("fortnite1@gmail.com");
-        game.setPrice(new BigDecimal(69.99));
+        game.setPrice(new BigDecimal(69.99).setScale(2, HALF_UP));
         game.setStudio("Bollywood");
         game.setQuantity(15);
 
-        gameDao.addGame(invoiceItem1);
+        gameDao.addGame(game);
 
-        List<Game> iList = gameDao.getGamesByErsbRating(game.getErsbRating());
-        assertEquals(2,iList.size());
+        game.setTitle("Fortnite");
+        game.setErsbRating("EC");
+        game.setDescription("fortnite@gmail.com");
+        game.setPrice(new BigDecimal(49.99).setScale(2, HALF_UP));
+        game.setStudio("Hollywood");
+        game.setQuantity(12);
+
+        gameDao.addGame(game);
+
+        List<Game> gList = gameDao.getGamesByErsbRating("EC");
+        assertEquals(2,gList.size());
+
+        gList = gameDao.getGamesByErsbRating("E10+");
+        assertEquals(1,gList.size());
+
+        gList = gameDao.getGamesByErsbRating("A");
+        assertEquals(0,gList.size());
     }
 
     @Test
@@ -183,24 +209,34 @@ public class GameDaoJdbcTemplateImplTest {
         game.setStudio("Hollywood");
         game.setQuantity(12);
 
-        game = gameDao.addGame(game);
+        gameDao.addGame(game);
 
-        Game game1 = new Game();
+        game.setTitle("Fortnite");
+        game.setErsbRating("E10+");
+        game.setDescription("fortnite1@gmail.com");
+        game.setPrice(new BigDecimal("49.99"));
+        game.setStudio("Bollywood");
+        game.setQuantity(15);
 
-        game1.setTitle("Fortnite1");
-        game1.setErsbRating("E10+");
-        game1.setDescription("fortnite1@gmail.com");
-        game1.setPrice(new BigDecimal("69.99"));
-        game1.setStudio("Bollywood");
-        game1.setQuantity(15);
+        gameDao.addGame(game);
 
-        game1 = gameDao.addGame(game1);
+        game.setTitle("Mario");
+        game.setErsbRating("EC");
+        game.setDescription("mario@gmail.com");
+        game.setPrice(new BigDecimal("69.99"));
+        game.setStudio("Hollywood");
+        game.setQuantity(15);
 
-        List<Game> iList = gameDao.getGamesByTitle(game.getTitle());
+        gameDao.addGame(game);
 
 
-        System.out.println(iList.size());
+        List<Game> gList = gameDao.getGamesByTitle("Fortnite");
+        assertEquals(2,gList.size());
 
-        assertEquals(1,iList.size());
+        gList = gameDao.getGamesByTitle("Mario");
+        assertEquals(1,gList.size());
+
+        gList = gameDao.getGamesByTitle("Pokemon");
+        assertEquals(0,gList.size());
     }
 }

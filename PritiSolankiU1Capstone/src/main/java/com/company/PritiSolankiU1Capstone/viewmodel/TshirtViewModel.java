@@ -87,4 +87,16 @@ public class TshirtViewModel {
     public int hashCode() {
         return Objects.hash(tShirtId, size, color, description, price, quantity);
     }
+
+    @Override
+    public String toString() {
+        return "TshirtViewModel{" +
+                "tShirtId=" + tShirtId +
+                ", size='" + size + '\'' +
+                ", color='" + color + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

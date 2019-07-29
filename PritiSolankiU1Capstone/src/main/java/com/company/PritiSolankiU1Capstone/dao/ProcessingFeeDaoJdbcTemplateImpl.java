@@ -27,7 +27,11 @@ public class ProcessingFeeDaoJdbcTemplateImpl implements ProcessingFeeDao{
     @Override
     public ProcessingFee getFeesByProductType(String productType) {
 
+        try{
             return jdbcTemplate.queryForObject(SELECT_PROCESSING_FEE_SQL, this::mapRowToProcessingFee, productType);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
 
     }
 

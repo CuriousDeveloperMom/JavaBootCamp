@@ -35,7 +35,7 @@ public class ServiceLayer {
 
     //#########################################CONSOLE METHODS##########################################################
 
-    @Transactional
+    //@Transactional
     public ConsoleViewModel saveConsole(ConsoleViewModel consoleViewModel) {
         Console console = new Console();
         console.setModel(consoleViewModel.getModel());
@@ -212,12 +212,15 @@ public class ServiceLayer {
         tshirt.setPrice(tshirtViewModel.getPrice());
         tshirt.setQuantity(tshirtViewModel.getQuantity());
 
+        tshirt =  tshirtDao.addTshirt(tshirt);
+
         tshirtViewModel.settShirtId(tshirt.gettShirtId());
         return tshirtViewModel;
     }
 
     public TshirtViewModel findTshirtbyId(int id) {
         Tshirt tshirt = tshirtDao.getTshirt(id);
+        System.out.println("ServiceLayer : " + tshirtDao.getTshirt(id));
         if (tshirt == null)
             return null;
         else
@@ -308,50 +311,55 @@ public class ServiceLayer {
         BigDecimal salesTax;
         BigDecimal processingFee;
         BigDecimal total;
-////////////////
-        //if (invoice != null){
-            if (invoice.getItemType().equals("Consoles")) {
 
-                Console console = consoleDao.getConsole(invoice.getItemId());
-                unitPrice = console.getPrice();
+        if (invoice.getItemType().equals("Consoles")) {
 
-                if (invoice.getQuantity() > console.getQuantity()) {
-                    throw new IllegalArgumentException("There are not enough items in inventory");
-                } else {
-                    console.setQuantity(console.getQuantity() - invoice.getQuantity());
-                    consoleDao.updateConsole(console);
-                }
-            } else if (invoice.getItemType().equals("Games")) {
+            Console console = consoleDao.getConsole(invoice.getItemId());
+            unitPrice = console.getPrice();
 
-                Game game = gameDao.getGame(invoice.getItemId());
-                unitPrice = game.getPrice();
-
-                if (invoice.getQuantity() > game.getQuantity()) {
-                    throw new IllegalArgumentException("There are not enough items in inventory");
-                } else {
-                    game.setQuantity(game.getQuantity() - invoice.getQuantity());
-                    gameDao.updateGame(game);
-                }
-            } else if (invoice.getItemType().equals("T-Shirts")) {
-
-                Tshirt tshirt = tshirtDao.getTshirt(invoice.getItemId());
-                unitPrice = tshirt.getPrice();
-
-                if (invoice.getQuantity() > tshirt.getQuantity()) {
-                    throw new IllegalArgumentException("There are not enough items in inventory");
-                } else {
-                    tshirt.setQuantity(tshirt.getQuantity() - invoice.getQuantity());
-                    tshirtDao.updateTshirt(tshirt);
-                }
+            if (invoice.getQuantity() > console.getQuantity()) {
+                throw new IllegalArgumentException("There are not enough items in inventory");
             } else {
-                throw new IllegalArgumentException("Invalid Product type is entered.");
+                console.setQuantity(console.getQuantity() - invoice.getQuantity());
+                consoleDao.updateConsole(console);
             }
+        } else if (invoice.getItemType().equals("Games")) {
+
+            Game game = gameDao.getGame(invoice.getItemId());
+            unitPrice = game.getPrice();
+
+            if (invoice.getQuantity() > game.getQuantity()) {
+                throw new IllegalArgumentException("There are not enough items in inventory");
+            } else {
+                game.setQuantity(game.getQuantity() - invoice.getQuantity());
+                gameDao.updateGame(game);
+            }
+        } else if (invoice.getItemType().equals("T-Shirts")) {
+
+            Tshirt tshirt = tshirtDao.getTshirt(invoice.getItemId());
+            unitPrice = tshirt.getPrice();
+
+            if (invoice.getQuantity() > tshirt.getQuantity()) {
+                throw new IllegalArgumentException("There are not enough items in inventory");
+            } else {
+                tshirt.setQuantity(tshirt.getQuantity() - invoice.getQuantity());
+                tshirtDao.updateTshirt(tshirt);
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid Product type is entered.");
+        }
         subtotal = unitPrice.multiply(BigDecimal.valueOf(invoice.getQuantity())).setScale(2, RoundingMode.HALF_UP);
 
         // Formula tax = rate * subtotal
 
+        System.out.println("State : " + invoice.getState());
+        System.out.println(salesTaxRateDao.getRateByState("NJ"));
+        System.out.println("Rate : " + salesTaxRateDao.getRateByState(invoice.getState()));
+
         salesTax = salesTaxRateDao.getRateByState(invoice.getState()).getRate().multiply(subtotal).setScale(2, RoundingMode.HALF_UP);
 
+        System.out.println("invoice.getItemType()" + invoice.getItemType());
+        System.out.println(processingFeeDao.getFeesByProductType(invoice.getItemType()));
         processingFee = processingFeeDao.getFeesByProductType(invoice.getItemType()).getFee();
 
         if (invoice.getQuantity() > 10) {
@@ -368,9 +376,11 @@ public class ServiceLayer {
 
         invoice = invoiceDao.addInvoice(invoice);
 
+        //invoice.setInvoiceId(invoice.getInvoiceId());
         //invoiceViewModel.setInvoiceId(invoice.getInvoiceId());
+
         return buildInvoiceViewModel(invoice);
-    }
+        }
 
     public InvoiceViewModel findInvoicebyId(int id) {
         Invoice invoice = invoiceDao.getInvoice(id);
@@ -425,73 +435,30 @@ public class ServiceLayer {
     }
 
     private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
-        InvoiceViewModel invoiceViewModel = new InvoiceViewModel();
-        invoiceViewModel.setInvoiceId(invoice.getInvoiceId());
-        invoiceViewModel.setName(invoice.getName());
-        invoiceViewModel.setStreet(invoice.getStreet());
-        invoiceViewModel.setCity(invoice.getCity());
-        invoiceViewModel.setState(invoice.getState());
-        invoiceViewModel.setZipcode(invoice.getZipcode());
-        invoiceViewModel.setItemType(invoice.getItemType());
-        invoiceViewModel.setItemId(invoice.getItemId());
 
-        invoiceViewModel.setUnitPrice(invoice.getUnitPrice());
-        invoiceViewModel.setQuantity(invoice.getQuantity());
-        invoiceViewModel.setSubtotal(invoice.getSubtotal());
-        invoiceViewModel.setTax(invoice.getTax());
-        invoiceViewModel.setProcessingFee(invoice.getProcessingFee());
-        invoiceViewModel.setTotal(invoice.getTotal());
+        InvoiceViewModel ivm = new InvoiceViewModel();
+        System.out.println("hahaha");
+        System.out.println("InvoiceId : " + invoice.getInvoiceId());
+        ivm.setInvoiceId(invoice.getInvoiceId());
+        ivm.setName(invoice.getName());
+        ivm.setStreet(invoice.getStreet());
+        ivm.setCity(invoice.getCity());
+        ivm.setState(invoice.getState());
+        ivm.setZipcode(invoice.getZipcode());
+        ivm.setItemType(invoice.getItemType());
+        ivm.setItemId(invoice.getItemId());
 
-        return invoiceViewModel;
+        ivm.setUnitPrice(invoice.getUnitPrice());
+        ivm.setQuantity(invoice.getQuantity());
+        ivm.setSubtotal(invoice.getSubtotal());
+        ivm.setTax(invoice.getTax());
+        ivm.setProcessingFee(invoice.getProcessingFee());
+        ivm.setTotal(invoice.getTotal());
+
+        return ivm;
     }
 
 }
-    /*
-    public String validate(InvoiceInputViewModel invoiceInputViewModel){
-
-        String message = "";
-
-        SalesTaxRate salesTaxRate = salesTaxRateDao.getRateByState(invoiceInputViewModel.getState());
-
-        //Check for State Validation
-
-        if (salesTaxRate == null)
-            message = "Invalid State code";
-
-        ProcessingFee processingFee = processingFeeDao.getFeesByProductType(invoiceInputViewModel.getItemType());
-
-        //Check for Product_type Validation
-
-        if (processingFee != null) {
-            if (!processingFee.getProductType().equals("Consoles")) {
-                message = "Invalid Item";
-            }
-            if (processingFee.getProductType().equals("T-Shirts")) {
-                message = "Invalid Item";
-            }
-            if (processingFee.getProductType().equals("Games")) {
-                message = "Invalid Item";
-            }
-        }
-        else
-            message = "Invalid Item";
-
-
-
-        //if (invoiceInputViewModel.getState().equals(salesTaxRateDao.getRateByState(invoiceInputViewModel.getState());
-
-       /* if (invoiceInputViewModel.getState().equals(salesTaxRateDao.getRateByState(invoiceInputViewModel.getState()){
-
-            String type = invoiceInputViewModel.getItemType();
-            int quantity = invoiceInputViewModel.getQuantity();
-
-            if (type.equals("Consoles") && (quantity > 0) && (quantity <= consoleDao.))
-
-
-            }*/
-
-            //if (invoiceInputViewModel.getQuantity() > 0 && invoiceInputViewModel.getQuantity() )
-
 
 
 

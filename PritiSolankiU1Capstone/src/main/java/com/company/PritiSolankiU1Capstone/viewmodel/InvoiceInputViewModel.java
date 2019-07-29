@@ -106,4 +106,18 @@ public class InvoiceInputViewModel {
     public int hashCode() {
         return Objects.hash(name, street, city, state, zipcode, itemType, itemId, quantity);
     }
+
+    @Override
+    public String toString() {
+        return "InvoiceInputViewModel{" +
+                "name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", itemType='" + itemType + '\'' +
+                ", itemId=" + itemId +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

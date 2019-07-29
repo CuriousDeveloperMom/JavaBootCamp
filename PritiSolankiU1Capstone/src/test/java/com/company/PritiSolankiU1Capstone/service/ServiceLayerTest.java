@@ -62,9 +62,9 @@ public class ServiceLayerTest {
 
         console1.setModel("XBox");
         console1.setManufacturer("Ninetendo");
-        console1.setMemoryAmount("xbox@gmail.com");
+        console1.setMemoryAmount("64");
         console1.setProcessor("Intel");
-        console1.setPrice(new BigDecimal("49").setScale(2, RoundingMode.HALF_UP));;
+        console1.setPrice(new BigDecimal("49.00").setScale(2, RoundingMode.HALF_UP));;
         console1.setQuantity(15);
 
         List<Console> consoleList = new ArrayList<>();
@@ -116,16 +116,16 @@ public class ServiceLayerTest {
         tshirt.setSize("Large");
         tshirt.setColor("Blue");
         tshirt.setDescription("Sportswear");
-        tshirt.setPrice(new BigDecimal(30.0).setScale(2, RoundingMode.HALF_UP));
+        tshirt.setPrice(new BigDecimal(30.00).setScale(2, RoundingMode.HALF_UP));
         tshirt.setQuantity(10);
 
         Tshirt tshirt1 = new Tshirt();
 
-        tshirt1.setSize("Medium");
-        tshirt1.setColor("Red");
-        tshirt1.setDescription("Active");
-        tshirt1.setPrice(new BigDecimal(35.0).setScale(2, RoundingMode.HALF_UP));
-        tshirt1.setQuantity(20);
+        tshirt1.setSize("Large");
+        tshirt1.setColor("Blue");
+        tshirt1.setDescription("Sportswear");
+        tshirt1.setPrice(new BigDecimal(30.00).setScale(2, RoundingMode.HALF_UP));
+        tshirt1.setQuantity(10);
 
 
         List<Tshirt> tshirtList = new ArrayList<>();
@@ -148,41 +148,39 @@ public class ServiceLayerTest {
         invoice.setName("John Kapra");
         invoice.setStreet("Glory drive");
         invoice.setCity("Clifton");
-        invoice.setState("nj");
+        invoice.setState("NJ");
         invoice.setZipcode("07087");
         invoice.setItemType("Consoles");
         invoice.setItemId(1);
-        invoice.setUnitPrice(new BigDecimal("1.00"));
+        invoice.setUnitPrice(new BigDecimal("49.00").setScale(2, RoundingMode.HALF_UP));
         invoice.setQuantity(2);
-        invoice.setSubtotal(new BigDecimal("2.00"));
-        invoice.setTax(new BigDecimal("2.00"));
-        invoice.setProcessingFee(new BigDecimal("3.00"));
-        invoice.setTotal(new BigDecimal("7.00"));
-
+        invoice.setSubtotal(new BigDecimal("98.00").setScale(2, RoundingMode.HALF_UP));
+        invoice.setTax(new BigDecimal("5.88").setScale(2, RoundingMode.HALF_UP));
+        invoice.setProcessingFee(new BigDecimal("3.00").setScale(2, RoundingMode.HALF_UP));
+        invoice.setTotal(new BigDecimal("106.88").setScale(2, RoundingMode.HALF_UP));
 
         Invoice invoice1 = new Invoice();
 
         invoice1.setName("John Kapra");
         invoice1.setStreet("Glory drive");
         invoice1.setCity("Clifton");
-        invoice1.setState("nj");
+        invoice1.setState("NJ");
         invoice1.setZipcode("07087");
         invoice1.setItemType("Consoles");
         invoice1.setItemId(1);
-        invoice1.setUnitPrice(new BigDecimal("1.00"));
+        invoice1.setUnitPrice(new BigDecimal("49.00").setScale(2, RoundingMode.HALF_UP));
         invoice1.setQuantity(2);
-        invoice1.setSubtotal(new BigDecimal("2.00"));
-        invoice1.setTax(new BigDecimal("2.00"));
-        invoice1.setProcessingFee(new BigDecimal("3.00"));
-        invoice1.setTotal(new BigDecimal("7.00"));
+        invoice1.setSubtotal(new BigDecimal("98.00").setScale(2, RoundingMode.HALF_UP));
+        invoice1.setTax(new BigDecimal("5.88").setScale(2, RoundingMode.HALF_UP));
+        invoice1.setProcessingFee(new BigDecimal("3.00").setScale(2, RoundingMode.HALF_UP));
+        invoice1.setTotal(new BigDecimal("106.88").setScale(2, RoundingMode.HALF_UP));
 
 
-        List<Invoice> invoiceList = new ArrayList<>();
-        invoiceList.add(invoice);
-
+        //List<Invoice> invoiceList = new ArrayList<>();
+        //invoiceList.add(invoice);
         doReturn(invoice).when(invoiceDao).addInvoice(invoice1);
-        doReturn(invoice).when(invoiceDao).getInvoice(1);
-        doReturn(invoiceList).when(invoiceDao).getAllInvoices();
+        //doReturn(invoice).when(invoiceDao).getInvoice(1);
+        //doReturn(invoiceList).when(invoiceDao).getAllInvoices();
     }
 
     private void setUpProcessingFeeDaoMock() {
@@ -190,19 +188,19 @@ public class ServiceLayerTest {
         processingFeeDao = mock(ProcessingFeeDaoJdbcTemplateImpl.class);
 
         ProcessingFee processingFee = new ProcessingFee();
-        processingFee.setProductType("Games");
-        processingFee.setFee(new BigDecimal(1.49).setScale(2, RoundingMode.HALF_UP));
+        processingFee.setProductType("Consoles");
+        processingFee.setFee(new BigDecimal(3.00).setScale(2, RoundingMode.HALF_UP));
 
-        doReturn(processingFee).when(processingFeeDao).getFeesByProductType("Games");
+        doReturn(processingFee).when(processingFeeDao).getFeesByProductType("Consoles");
 
     }
     private void setUpSalesTaxRateDaoMock() {
 
         salesTaxRateDao = mock(SalesTaxRateDaoJdbcTemplateImpl.class);
         SalesTaxRate salesTaxRate = new SalesTaxRate();
-        salesTaxRate.setState("ca");
+        salesTaxRate.setState("NJ");
         salesTaxRate.setRate(new BigDecimal(0.06).setScale(2, RoundingMode.HALF_UP));
-        doReturn(salesTaxRate).when(salesTaxRateDao).getRateByState("ca");
+        doReturn(salesTaxRate).when(salesTaxRateDao).getRateByState("NJ");
     }
 
     //##################################### Console MOCK TESTS #################################################
@@ -358,7 +356,7 @@ public class ServiceLayerTest {
         tshirtViewModel.setSize("Large");
         tshirtViewModel.setColor("Blue");
         tshirtViewModel.setDescription("Sportswear");
-        tshirtViewModel.setPrice(new BigDecimal(30.0).setScale(2, RoundingMode.HALF_UP));
+        tshirtViewModel.setPrice(new BigDecimal(30.00).setScale(2, RoundingMode.HALF_UP));
         tshirtViewModel.setQuantity(10);
 
         tshirtViewModel = serviceLayer.saveTshirt(tshirtViewModel);
@@ -376,7 +374,7 @@ public class ServiceLayerTest {
             tshirtViewModel.setSize("Large");
             tshirtViewModel.setColor("Blue");
             tshirtViewModel.setDescription("Sportswear");
-            tshirtViewModel.setPrice(new BigDecimal(30.0).setScale(2, RoundingMode.HALF_UP));
+            tshirtViewModel.setPrice(new BigDecimal(30).setScale(2, RoundingMode.HALF_UP));
             tshirtViewModel.setQuantity(10);
 
             List<TshirtViewModel> tshirtViewModelList = serviceLayer.findAllTshirts();
@@ -390,7 +388,7 @@ public class ServiceLayerTest {
         tshirtViewModel.setSize("Large");
         tshirtViewModel.setColor("Blue");
         tshirtViewModel.setDescription("Sportswear");
-        tshirtViewModel.setPrice(new BigDecimal(30.0).setScale(2, RoundingMode.HALF_UP));
+        tshirtViewModel.setPrice(new BigDecimal(30).setScale(2, RoundingMode.HALF_UP));
         tshirtViewModel.setQuantity(10);
 
         tshirtViewModel = serviceLayer.saveTshirt(tshirtViewModel);
@@ -424,7 +422,7 @@ public class ServiceLayerTest {
         invoiceInputViewModel.setName("John Kapra");
         invoiceInputViewModel.setStreet("Glory drive");
         invoiceInputViewModel.setCity("Clifton");
-        invoiceInputViewModel.setState("nj");
+        invoiceInputViewModel.setState("NJ");
         invoiceInputViewModel.setZipcode("07087");
         invoiceInputViewModel.setItemType("Consoles");
         invoiceInputViewModel.setItemId(1);
@@ -440,16 +438,16 @@ public class ServiceLayerTest {
         invoiceViewModel.setName("John Kapra");
         invoiceViewModel.setStreet("Glory drive");
         invoiceViewModel.setCity("Clifton");
-        invoiceViewModel.setState("nj");
+        invoiceViewModel.setState("NJ");
         invoiceViewModel.setZipcode("07087");
         invoiceViewModel.setItemType("Consoles");
         invoiceViewModel.setItemId(1);
-        invoiceViewModel.setUnitPrice(new BigDecimal(1.00).setScale(2, RoundingMode.HALF_UP));
+        invoiceViewModel.setUnitPrice(new BigDecimal("49.00").setScale(2, RoundingMode.HALF_UP));
         invoiceViewModel.setQuantity(2);
-        invoiceViewModel.setSubtotal(new BigDecimal(2.00).setScale(2, RoundingMode.HALF_UP));
-        invoiceViewModel.setTax(new BigDecimal(2.0).setScale(2, RoundingMode.HALF_UP));
-        invoiceViewModel.setProcessingFee(new BigDecimal(3.00).setScale(2, RoundingMode.HALF_UP));
-        invoiceViewModel.setTotal(new BigDecimal(7.00).setScale(2, RoundingMode.HALF_UP));
+        invoiceViewModel.setSubtotal(new BigDecimal("98.00").setScale(2, RoundingMode.HALF_UP));
+        invoiceViewModel.setTax(new BigDecimal("5.88").setScale(2, RoundingMode.HALF_UP));
+        invoiceViewModel.setProcessingFee(new BigDecimal("3.00").setScale(2, RoundingMode.HALF_UP));
+        invoiceViewModel.setTotal(new BigDecimal("106.88").setScale(2, RoundingMode.HALF_UP));
 
         assertEquals(invoiceViewModel,fromService);
 

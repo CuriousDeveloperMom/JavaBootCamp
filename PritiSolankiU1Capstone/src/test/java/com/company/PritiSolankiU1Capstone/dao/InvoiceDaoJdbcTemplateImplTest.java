@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.math.RoundingMode.HALF_UP;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,7 +36,7 @@ public class InvoiceDaoJdbcTemplateImplTest {
     }
 
     @Test
-    public void addInvoice() {
+    public void addGetDeleteInvoice() {
         Invoice invoice = new Invoice();
         invoice.setName("John Kapra");
         invoice.setStreet("Glory drive");
@@ -44,40 +45,34 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setZipcode("07087");
         invoice.setItemType("Console");
         invoice.setItemId(1);
-        invoice.setUnitPrice(new BigDecimal("1.00"));
+        invoice.setUnitPrice(new BigDecimal("1.00").setScale(2, HALF_UP));
         invoice.setQuantity(2);
-        invoice.setSubtotal(new BigDecimal("2.00"));
-        invoice.setTax(new BigDecimal("2.00"));
-        invoice.setProcessingFee(new BigDecimal("3.00"));
-        invoice.setTotal(new BigDecimal("7.00"));
+        invoice.setSubtotal(new BigDecimal("2.00").setScale(2, HALF_UP));
+        invoice.setTax(new BigDecimal("2.00").setScale(2, HALF_UP));
+        invoice.setProcessingFee(new BigDecimal("3.00").setScale(2, HALF_UP));
+        invoice.setTotal(new BigDecimal("7.00").setScale(2, HALF_UP));
 
         invoice = invoiceDao.addInvoice(invoice);
-
-
-        List<Invoice> invoiceList = invoiceDao.getAllInvoices();
-        assertEquals(1, invoiceList.size());
-
-    }
-
-       /*
-       System.out.println("INVOICE" + invoice);
-        System.out.println("1111" + invoice1);
+        Invoice invoice1 = invoiceDao.getInvoice(invoice.getInvoiceId());
         assertEquals(invoice1,invoice);
-         Invoice invoice1 = invoiceDao.getInvoice(invoice.getInvoiceId());
+
         invoiceDao.deleteInvoice(invoice.getInvoiceId());
         invoice1 = invoiceDao.getInvoice(invoice.getInvoiceId());
-        assertNull(invoice1);*?
-    */
-
+        assertNull(invoice1);
+        //List<Invoice> invoiceList = invoiceDao.getAllInvoices();
+        //assertEquals(1, invoiceList.size());
+    }
 
     @After
     public void tearDown() throws Exception {
+
+        List<Invoice> invoiceList = invoiceDao.getAllInvoices();
+        invoiceList.stream()
+                .forEach(invoice -> {
+                    invoiceDao.deleteInvoice(invoice.getInvoiceId());
+                });
     }
 
-
-    @Test
-    public void getInvoice() {
-    }
 
     @Test
     public void getAllInvoices() {
@@ -90,12 +85,12 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setZipcode("07087");
         invoice.setItemType("Console");
         invoice.setItemId(1);
-        invoice.setUnitPrice(new BigDecimal(12.99));
+        invoice.setUnitPrice(new BigDecimal(12.99).setScale(2, HALF_UP));
         invoice.setQuantity(12);
-        invoice.setSubtotal(new BigDecimal(149.99));
-        invoice.setTax(new BigDecimal(7.99));
-        invoice.setProcessingFee(new BigDecimal(15.49));
-        invoice.setTotal(new BigDecimal(179.99));
+        invoice.setSubtotal(new BigDecimal(149.99).setScale(2, HALF_UP));
+        invoice.setTax(new BigDecimal(7.99).setScale(2, HALF_UP));
+        invoice.setProcessingFee(new BigDecimal(15.49).setScale(2, HALF_UP));
+        invoice.setTotal(new BigDecimal(179.99).setScale(2, HALF_UP));
 
         invoice = invoiceDao.addInvoice(invoice);
 
@@ -106,16 +101,16 @@ public class InvoiceDaoJdbcTemplateImplTest {
         invoice.setZipcode("07087");
         invoice.setItemType("Console");
         invoice.setItemId(1);
-        invoice.setUnitPrice(new BigDecimal(12.99));
+        invoice.setUnitPrice(new BigDecimal(12.99).setScale(2, HALF_UP));
         invoice.setQuantity(12);
-        invoice.setSubtotal(new BigDecimal(149.99));
-        invoice.setTax(new BigDecimal(7.99));
-        invoice.setProcessingFee(new BigDecimal(15.49));
-        invoice.setTotal(new BigDecimal(179.99));
+        invoice.setSubtotal(new BigDecimal(149.99).setScale(2, HALF_UP));
+        invoice.setTax(new BigDecimal(7.99).setScale(2, HALF_UP));
+        invoice.setProcessingFee(new BigDecimal(15.49).setScale(2, HALF_UP));
+        invoice.setTotal(new BigDecimal(179.99).setScale(2, HALF_UP));
 
         invoiceDao.addInvoice(invoice);
 
         List<Invoice> iList = invoiceDao.getAllInvoices();
-        assertEquals(2, iList.size());
+        assertEquals(iList.size(),2);
     }
 }

@@ -46,13 +46,5 @@ public class SalesTaxRateDaoJdbcTemplateImplTest {
         SalesTaxRate salesTaxRateNY = salesTaxRateDao.getRateByState("NY");
         assertEquals(new BigDecimal("0.06"), salesTaxRateNY.getRate());
 
-        /*SalesTaxRate salesTaxRate = new SalesTaxRate();
-
-        salesTaxRate.setState("NJ");
-        salesTaxRate.setRate(new BigDecimal(8.99).setScale(2));
-
-        //List<Game> iList = gameDao.getGamesByStudio(game.getStudio());
-        salesTaxRate = salesTaxRateDao.getRateByState(salesTaxRate.getState());
-        //assertEquals(1,iList.size());*/
     }
 }

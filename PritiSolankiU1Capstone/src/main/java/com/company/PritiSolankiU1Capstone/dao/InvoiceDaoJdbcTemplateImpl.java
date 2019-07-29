@@ -87,6 +87,7 @@ public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao{
 
     private Invoice mapRowToInvoice(ResultSet rs, int rowNum) throws SQLException {
         Invoice invoice = new Invoice();
+
         invoice.setInvoiceId(rs.getInt("invoice_id"));
         invoice.setName(rs.getString("name"));
         invoice.setStreet(rs.getString("street"));

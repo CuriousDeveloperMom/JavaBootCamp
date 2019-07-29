@@ -22,11 +22,11 @@ public class ConsoleInventoryController {
         return serviceLayer.findAllConsoles();
     }
 
-    @GetMapping
+   /* @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel console) {
         return serviceLayer.saveConsole(console);
-    }
+    }*/
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

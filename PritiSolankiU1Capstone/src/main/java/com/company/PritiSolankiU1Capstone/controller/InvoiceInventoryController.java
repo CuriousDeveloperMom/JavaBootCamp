@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/consoles")
+@RequestMapping
 public class InvoiceInventoryController {
 
     @Autowired

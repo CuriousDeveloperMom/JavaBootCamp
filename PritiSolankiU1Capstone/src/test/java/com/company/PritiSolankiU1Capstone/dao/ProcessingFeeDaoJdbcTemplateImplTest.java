@@ -37,14 +37,11 @@ public class ProcessingFeeDaoJdbcTemplateImplTest {
         ProcessingFee processingFeeConsole = processingFeeDao.getFeesByProductType("Consoles");
         assertEquals(new BigDecimal("14.99"), processingFeeConsole.getFee());
 
-
         ProcessingFee processingFeeGame = processingFeeDao.getFeesByProductType("Games");
         assertEquals(new BigDecimal("1.49"), processingFeeGame.getFee());
 
         ProcessingFee processingFeeTshirt = processingFeeDao.getFeesByProductType("T-Shirts");
         assertEquals(new BigDecimal("1.98"), processingFeeTshirt.getFee());
-
-        //assertEquals(2,cList.size());
 
     }
 }
