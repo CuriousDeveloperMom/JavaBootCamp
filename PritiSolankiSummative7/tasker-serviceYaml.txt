@@ -24,40 +24,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Task'
         '400':
-          description: Invalid request syntax.
+          description: Invalid syntax request.
         '422':
           description: Incomplete information. Some required fields missing.
-    put:
-      summary: Updated the entry .
-      parameters: 
-        - name: id
-          in: path
-          required: true
-          description: ID of the task you would like to update.
-          schema:
-            type: integer
-            format: int64
-            minimum: 1
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Task'
+          
+    get: 
+      summary: Retrives all tasks
       responses:
         '200':
-          description: Task successfully updated.
-        '422':
-          description:  ID on path mush match the ID in the task object.          
+          description: All task objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+      
   /tasks/{id}:
     # GET, DELETE, and PUT are all under this path entry
     get:
-      summary: Retrieves the entry.
+      summary: Retrieves task entry.
       parameters: 
         - name: id
           in: path
           required: true
-          description: ID of the task you would like to retrieve.
+          description: ID of the task you want to retrieve.
           schema:
             type: integer
             format: int64
@@ -85,14 +74,40 @@ paths:
         '200':
           description: Task successfully deleted.
           
+    put:
+      summary: Updates a task entry 
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: ID of the task you want to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Task successfully updated.
+        '422':
+          description:  ID on path mush match the ID in the task object.     
+          
+          
   /tasks/category/{category}:
     get:
-      summary: Retrieves the entry for the task with the give category.
+      summary: Retrieves task entry for the given category.
       parameters:
         - name: category
           in: path
           required: true
-          description: Category of the task you would like to retrieve.
+          description: Category of the task you want to retrieve.
+
+
           schema:
             type: string
       responses:
@@ -113,6 +128,9 @@ components:
         createDate:
           type: string
         dueDate:
-          type: string
+            type: string
         category:
           type: string
+
+
+

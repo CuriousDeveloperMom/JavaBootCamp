@@ -68,7 +68,9 @@ public class TaskerDaoJdbcTemplateImpl implements TaskerDao {
 
     @Override
     public List<Task> getTasksByCategory(String category) {
+
         return jdbcTemplate.query(SELECT_TASKS_BY_CATEGORY, this::mapRowToTask, category);
+
     }
 
     @Override

@@ -21,7 +21,7 @@ public class TaskerController {
         this.service = service;
     }
 
-    //    Create a new task:
+//    Create a new task:
 //    ------------------
 //    URI: /tasks
 //    HTTP Method: POST
@@ -39,7 +39,7 @@ public class TaskerController {
 
 
 //    Find task by ID:
-//            ----------------
+//    ----------------
 //    URI: /tasks/{id}
 //    HTTP Method: GET
 //    RequestBody: None
@@ -67,7 +67,7 @@ public class TaskerController {
 //    RequestBody: None
 //    Responsebody: None
 
-    @RequestMapping(value = "/tasks{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable("id") int id) {
         service.deleteTask(id);
@@ -80,7 +80,7 @@ public class TaskerController {
 //    RequestBody: JSON TaskViewModel information (including ID and advertisement)
 //    ResponseBody: None
 
-    @RequestMapping(value = "/tasks/id")
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.PUT )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTask(@PathVariable("id") int id, @RequestBody @Valid TaskViewModel taskViewModel) {
         // make sure the Id on the path matches the id of the task object

@@ -10,6 +10,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,20 +42,24 @@ public class TaskerServiceLayer {
     public TaskViewModel fetchTask(int id) {
 
         Task task = dao.getTask(id);
-        TaskViewModel tvm = new TaskViewModel();
 
-        tvm.setId(task.getId());
-        tvm.setDescription(task.getDescription());
-        tvm.setCreateDate(task.getCreateDate());
-        tvm.setDueDate(task.getDueDate());
-        tvm.setCategory(task.getCategory());
+        if (task == null)
+            return null;
+        else {
+            TaskViewModel tvm = new TaskViewModel();
 
-        tvm.setAdvertisement(getAdFromAdserver());
+            tvm.setId(task.getId());
+            tvm.setDescription(task.getDescription());
+            tvm.setCreateDate(task.getCreateDate());
+            tvm.setDueDate(task.getDueDate());
+            tvm.setCategory(task.getCategory());
 
-        // TODO - get ad from Adserver and put in tvm
+            tvm.setAdvertisement(getAdFromAdserver());
 
+            // TODO - get ad from Adserver and put in tvm
 
-        return tvm;
+            return tvm;
+        }
     }
 
     public List<TaskViewModel> fetchAllTasks() {
@@ -71,20 +76,34 @@ public class TaskerServiceLayer {
     }
 
     public List<TaskViewModel> fetchTasksByCategory(String category) {
-        List<Task>  tasks =  dao.getTasksByCategory(category);
+        List<Task>  taskList =  dao.getTasksByCategory(category);
         List<TaskViewModel> taskViewModelList = new ArrayList<>();
 
-        for (Task task : tasks){
-            TaskViewModel taskViewModel = new TaskViewModel();
+        for (Task task : taskList){
 
+            TaskViewModel taskViewModel = buildTaskViewModel(task);
             taskViewModelList.add(taskViewModel);
         }
+
         return taskViewModelList;
     }
+
+// public List<TaskViewModel> fetchTasksByCategory(String category) {
+//    List<Task>  taskList =  dao.getTasksByCategory(category);
+//    List<TaskViewModel> taskViewModelList = new ArrayList<>();
+//
+//         taskList.stream()
+//                .forEach(tasks ->{
+//                    TaskViewModel tvm = buildTaskViewModel(tasks);
+//                    taskViewModelList.add(tvm);
+//                });
+//        return taskViewModelList;
+//  }
 
     public TaskViewModel newTask(TaskViewModel taskViewModel) {
 
         Task task = new Task();
+        task.setId(taskViewModel.getId());
         task.setDescription(taskViewModel.getDescription());
         task.setCreateDate(taskViewModel.getCreateDate());
         task.setDueDate(taskViewModel.getDueDate());
@@ -94,7 +113,9 @@ public class TaskerServiceLayer {
         taskViewModel.setId(task.getId());
 
         // TODO - get ad from Adserver and put in taskViewModel
+
         taskViewModel.setAdvertisement(getAdFromAdserver());
+
 
         return taskViewModel;
     }
@@ -121,7 +142,7 @@ public class TaskerServiceLayer {
         taskViewModel.setDueDate(task.getDueDate());
         taskViewModel.setCategory(task.getCategory());
 
-        taskViewModel.setAdvertisement("This is advertisement.");
+        taskViewModel.setAdvertisement(getAdFromAdserver());
 
         return taskViewModel;
     }

@@ -125,7 +125,5 @@ public class TaskerServiceLayerTest {
         doReturn(taskList).when(taskerDao).getAllTasks();
         doReturn(taskList).when(taskerDao).getTasksByCategory(task.getCategory());
     }
-//    @Test
-//    public void getAdFromAdserver() {
-//    }
+
 }
