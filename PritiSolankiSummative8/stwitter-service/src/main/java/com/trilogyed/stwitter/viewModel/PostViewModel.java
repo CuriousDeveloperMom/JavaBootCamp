@@ -51,20 +51,23 @@ public class PostViewModel {
         this.post = post;
     }
 
-    public void addComments(CommentViewModel commentViewModel){
-        cList.add(commentViewModel);
-    }
-    public void removeComments(CommentViewModel commentViewModel){
-        cList.remove(commentViewModel);
-    }
-
-    public List<CommentViewModel> getComments() {
+    public List<CommentViewModel> getcList() {
         return cList;
     }
 
-    public void setComments(List<CommentViewModel> comments) {
-        this.cList = comments;
+    public void setcList(List<CommentViewModel> cList) {
+        this.cList = cList;
     }
+
+    public void addComment(CommentViewModel commentViewModel) {
+        cList.add(commentViewModel);
+    }
+
+    public void removeComment(CommentViewModel commentViewModel)
+    {
+        cList.remove(commentViewModel);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -75,12 +78,12 @@ public class PostViewModel {
                 Objects.equals(getPostDate(), that.getPostDate()) &&
                 Objects.equals(getPosterName(), that.getPosterName()) &&
                 Objects.equals(getPost(), that.getPost()) &&
-                Objects.equals(getComments(), that.getComments());
+                Objects.equals(getcList(), that.getcList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getPostDate(), getPosterName(), getPost(), getComments());
+        return Objects.hash(getPostID(), getPostDate(), getPosterName(), getPost(), getcList());
     }
 
     @Override
