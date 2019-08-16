@@ -13,10 +13,10 @@ create table if not exists authorities (
 	create unique index ix_auth_username on authorities (username,authority
 );
 
-insert into users (username, password, enabled) values ('plainUser', '$2a$10$cjo0GO6UceyZz4AlwqpOre9/qJ7E4aoqYHCGu5iw7cx/blxhkx', true);
-insert into users (username, password, enabled) values ('staffUser', '$2a$10$X3uNuwhxSRbgRE8wnx91rODCH41KOZ33Dpp.0.3yMVlV0cxH1uzU6', true);
-insert into users (username, password, enabled) values ('managerUser', '$2a$10$ktyRTRyTtiIifsi/HZygdeGLrscHdzah31YjVy5vD2WA3Cb27WsVy', true);
-insert into users (username, password, enabled) values ('adminUser', '$2a$10$Xep5UPhAtku7NgkstsGbfefblZzk1V3CgCPjyF9AIBp/w.k2GWB3e', true);
+insert into users (username, password, enabled) values ('plainUser', '$2a$10$UYoSvB2nJysG6rzja5QmV.ElvUDlWRU7.7JMn/l/Ff/WYjXIw28hy', true);
+insert into users (username, password, enabled) values ('staffUser', '$2a$10$VY1UcToPfEqZMUvN6kGIfuJE6OfuWuYulVolCVIcY2oC.KwTSDi9.', true);
+insert into users (username, password, enabled) values ('managerUser', '$2a$10$d4fgLnJ03wRVrYsEvxFq8uxZpqQ8tmRY34RaquRKmCBCaRkeMJpBq', true);
+insert into users (username, password, enabled) values ('adminUser', '$2a$10$UUDZVPS5gFoZ5XzMSVDSPerbcy4KvHcKaBbdaSM4RGbmC/1zTcHVS', true);
 
 insert into authorities (username, authority) values ('plainUser', 'ROLE_USER');
 

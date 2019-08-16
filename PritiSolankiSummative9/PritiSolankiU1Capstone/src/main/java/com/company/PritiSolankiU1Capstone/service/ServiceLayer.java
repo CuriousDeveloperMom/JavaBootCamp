@@ -311,8 +311,8 @@ public class ServiceLayer {
         BigDecimal salesTax;
         BigDecimal processingFee;
         BigDecimal total;
-////////////////
-        //if (invoice != null) {
+
+
         if (invoice.getItemType().equals("Consoles")) {
 
             Console console = consoleDao.getConsole(invoice.getItemId());
@@ -377,9 +377,8 @@ public class ServiceLayer {
         System.out.println("VVV BEFORE " + invoice);
 
         invoice = invoiceDao.addInvoice(invoice);
-        //invoice.setInvoiceId(invoice.getInvoiceId());
-    //}
-        //invoiceViewModel.setInvoiceId(invoice.getInvoiceId());
+
+
         System.out.println("Before buildInvoice");
         System.out.println("VVV " + invoice);
             return buildInvoiceViewModel(invoice);

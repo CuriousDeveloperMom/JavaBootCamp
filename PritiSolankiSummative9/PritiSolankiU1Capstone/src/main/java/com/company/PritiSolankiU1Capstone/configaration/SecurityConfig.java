@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.httpBasic();
         httpSecurity.authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/games/", "/consoles/", "/tshirts", "/invoice/*").permitAll()
-                .mvcMatchers(HttpMethod.PUT, "/games/", "/consoles/", "/tshirts/", "/invoice/").hasAnyAuthority("ROLE_STAFF", "ROLE_MANAGER", "ROLE_ADMIN")
+                .mvcMatchers(HttpMethod.GET, "/games/*", "/consoles/*", "/tshirts/*", "/invoice/*").permitAll()
+                .mvcMatchers(HttpMethod.PUT, "/games/*", "/consoles/*", "/tshirts/*", "/invoice/*").hasAnyAuthority("ROLE_STAFF", "ROLE_MANAGER", "ROLE_ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/games", "/consoles", "/tshirts", "/invoice").hasAnyAuthority("ROLE_ADMIN", "ROLE_MANAGER")
-                .mvcMatchers(HttpMethod.DELETE, "/games/", "/consoles/", "/tshirts/", "/invoice/").hasAuthority("ROLE_ADMIN");
+                .mvcMatchers(HttpMethod.DELETE, "/games/*", "/consoles/*", "/tshirts/*", "/invoice/*").hasAuthority("ROLE_ADMIN");
         httpSecurity
                 .logout()
                 .clearAuthentication(true)

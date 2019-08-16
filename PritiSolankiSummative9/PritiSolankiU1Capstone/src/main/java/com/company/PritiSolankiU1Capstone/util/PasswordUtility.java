@@ -8,7 +8,7 @@ public class PasswordUtility {
     public static void main(String[] args) {
         PasswordEncoder enc = new BCryptPasswordEncoder();
 
-        String password = "adminUser";
+        String password = "plainUser";
 
         String encodedPassword = enc.encode(password);
 
